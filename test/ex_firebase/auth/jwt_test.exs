@@ -9,6 +9,11 @@ defmodule ExFirebase.Auth.JWTTest do
     assert {:ok, _token} = JWT.from_certificate(cert)
   end
 
+  test "from_certificate/2 returns a jwt" do
+    %Certificate{} = cert = Certificate.new()
+    assert {:ok, _token} = JWT.from_certificate(cert, "3")
+  end
+
   test "from_certificate/1 returns error for invalid certificate" do
     %Certificate{} =
       cert =

@@ -55,6 +55,13 @@ defmodule ExFirebase.Auth do
     end
   end
 
+  def get_access_token(user_id) do
+    with %Certificate{} = certificate <- Certificate.new(),
+         {:ok, jwt} <- JWT.from_certificate(certificate, user_id) do
+      @api.get_access_token(jwt)
+    end
+  end
+
   @doc """
   Verifies the claims and signature of a Firebase Auth ID token
 
