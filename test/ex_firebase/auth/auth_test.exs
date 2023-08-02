@@ -17,6 +17,11 @@ defmodule ExFirebase.AuthTest do
              Auth.get_access_token()
   end
 
+  test "get_custom_token/1 fetches new access token" do
+    assert {:ok, %HTTPoison.Response{body: %{"access_token" => _}, status_code: 200}} =
+             Auth.get_custom_token("user_id")
+  end
+
   test "public_keys/0 returns cached public keys" do
     assert @public_keys = Auth.public_keys()
   end

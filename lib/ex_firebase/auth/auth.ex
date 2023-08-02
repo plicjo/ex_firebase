@@ -55,7 +55,7 @@ defmodule ExFirebase.Auth do
     end
   end
 
-  def get_access_token(user_id) do
+  def get_custom_token(user_id) do
     with %Certificate{} = certificate <- Certificate.new(),
          {:ok, jwt} <- JWT.from_certificate(certificate, user_id) do
       @api.get_access_token(jwt)

@@ -8,6 +8,7 @@ defmodule ExFirebase.Auth.JWT do
 
   @algorithm "RS256"
   @oauth_token_url "https://www.googleapis.com/oauth2/v4/token"
+  @custom_token_audience "https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit"
   @one_hour_in_seconds 60 * 60
   @scopes [
     "https://www.googleapis.com/auth/cloud-platform",
@@ -57,6 +58,11 @@ defmodule ExFirebase.Auth.JWT do
   end
 
   defp claims(client_email, user_id) do
-    Map.merge(claims(client_email), %{"uid" => user_id})
+    Map.merge(claims(client_email), %{
+      "uid" => user_id,
+      "sub" => client_email,
+      "alg" => @algorithm,
+      "aud" => @custom_token_audience,
+    })
   end
 end
